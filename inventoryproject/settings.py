@@ -74,7 +74,7 @@ WSGI_APPLICATION = "inventoryproject.wsgi.application"
 
 
 
-DDATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': os.getenv('MYSQLDATABASE') or os.getenv('MYSQL_DATABASE'),
