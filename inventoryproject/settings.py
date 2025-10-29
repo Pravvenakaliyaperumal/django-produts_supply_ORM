@@ -11,7 +11,9 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-
+import os
+from dotenv import load_dotenv
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,9 +25,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-8a-k_9!6#(u@(vm7ukwl!495_41g1q37ef!-3xe_n#bv6-u)t^"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+DEBUG = False
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -74,18 +75,30 @@ WSGI_APPLICATION = "inventoryproject.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'product_db',
+#         'USER': 'root',                # your MySQL username
+#         'PASSWORD': 'Kpraveena@123',   # your MySQL password
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'product_db',
-        'USER': 'root',                # your MySQL username
-        'PASSWORD': 'Kpraveena@123',   # your MySQL password
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'NAME': os.getenv('MYSQLDATABASE'),
+        'USER': os.getenv('MYSQLUSER'),
+        'PASSWORD': os.getenv('MYSQLPASSWORD'),
+        'HOST': os.getenv('MYSQLHOST'),
+        'PORT': os.getenv('MYSQLPORT', '3306'),
     }
 }
 
-
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators

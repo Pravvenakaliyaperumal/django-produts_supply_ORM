@@ -1,6 +1,8 @@
 {% extends 'products/base.html' %}
 {% block content %}
 <h2>Product List</h2>
+<a href="{% url 'add_product' %}">➕ Add New Product</a>
+
 <table border="1">
 <tr><th>Name</th><th>Category</th><th>Supplier</th><th>Price</th><th>Stock</th></tr>
 {% for p in products %}
