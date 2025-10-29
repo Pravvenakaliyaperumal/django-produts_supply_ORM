@@ -1,0 +1,22 @@
+{% extends 'products/base.html' %}
+{% block content %}
+<h2>Supplier List</h2>
+
+<table border="1" cellpadding="8">
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Phone_number</th>
+  </tr>
+  {% for s in suppliers %}
+  <tr>
+    <td>{{ s.name }}</td>
+    <td>{{ s.email }}</td>
+    <td>{{ s.phone_number }}</td>
+  </tr>
+  {% empty %}
+  <tr><td colspan="3">No suppliers found.</td></tr>
+  {% endfor %}
+</table>
+
+{% endblock %}
