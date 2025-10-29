@@ -30,7 +30,9 @@ DEBUG = False
 ALLOWED_HOSTS = ['*']
 
 # Application definition
-
+if os.getenv("RAILWAY_ENVIRONMENT") is None:
+    load_dotenv()
+    
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
