@@ -17,14 +17,15 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+if os.getenv("RAILWAY_ENVIRONMENT") is None:
+    load_dotenv()
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
 # SECURITY WARNING: don't run with debug turned on in production!
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'temporary-fallback-key')
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "temp-key")
 DEBUG = False
 ALLOWED_HOSTS = ['*']
 
@@ -71,28 +72,17 @@ TEMPLATES = [
 WSGI_APPLICATION = "inventoryproject.wsgi.application"
 
 
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'product_db',
-#         'USER': 'root',                # your MySQL username
-#         'PASSWORD': 'Kpraveena@123',   # your MySQL password
-#         'HOST': 'localhost',
-#         'PORT': '3306',
-#     }
-# }
 
-DATABASES = {
+DDATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('MYSQLDATABASE'),
-        'USER': os.getenv('MYSQLUSER'),
-        'PASSWORD': os.getenv('MYSQLPASSWORD'),
-        'HOST': os.getenv('MYSQLHOST'),
-        'PORT': os.getenv('MYSQLPORT', '3306'),
+        'NAME': os.getenv('MYSQLDATABASE') or os.getenv('MYSQL_DATABASE'),
+        'USER': os.getenv('MYSQLUSER') or os.getenv('MYSQL_USER'),
+        'PASSWORD': os.getenv('MYSQLPASSWORD') or os.getenv('MYSQL_PASSWORD'),
+        'HOST': os.getenv('MYSQLHOST') or os.getenv('MYSQL_HOST'),
+        'PORT': os.getenv('MYSQLPORT') or os.getenv('MYSQL_PORT', '3306'),
+        'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"},
     }
 }
 
